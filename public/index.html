@@ -113,9 +113,9 @@
             </section>
     
             <section class="text-box">
-                <h1>Free</h1>
+                <h1>Chart</h1>
                 <p>
-                    This app is free!!! And you are the only one holding your data!
+                    <canvas id="myChart" width="400" height="400"></canvas>
                 </p>
             </section>
 
@@ -130,5 +130,43 @@
         </div>
     </footer>
 
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.7.3/Chart.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.5.0/axios.min.js" integrity="sha512-aoTNnqZcT8B4AmeCFmiSnDlc4Nj/KPaZyB5G7JnOnUEkdNpCZs1LCankiYi01sLTyWy+m2P+W4XM+BuQ3Q4/Dg==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    <script>
+        const data = {
+          
+            labels: [],
+            datasets: [
+                {
+                    data: [],
+                    backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb'],
+                },
+            ],
+        };
+
+
+
+        function createChart(){
+            var ctx = document.getElementById("myChart").getContext("2d");
+            var myPieChart = new Chart(ctx, {
+                type: 'doughnut',
+                data: data
+            });
+        };
+        
+
+        function getBudget(){
+            axios.get('/budget')
+            .then(function (res){
+                console.log(res.data);
+                for (var i = 0; i < res.data.myBudget.length; i++) {
+                    data.datasets[0].data[i] = res.data.myBudget[i].budget;
+                    data.labels[i] = res.data.myBudget[i].title;
+                }
+                createChart();
+            });
+        }
+        getBudget();
+    </script>
 </body>
 </html>
