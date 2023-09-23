@@ -1,1 +1,9 @@
-<p>article works!</p>
+<article class="text-box">
+    
+    <ng-content select="h1"></ng-content>
+
+    <!-- Since this worked for me with a P tag, I didn't need to keep P tags here like you did! I used inspect to verify this -->
+    <ng-content select="p"></ng-content>
+    
+    
+</article>

@@ -454,7 +454,7 @@ div.hero h2 {
   text-align: center;
 }
 
-.container section.text-box {
+.container pb-article article.text-box {
   display: inline-block;
   width: 100%;
   max-width: 340px;
@@ -467,3 +467,14 @@ div.hero h2 {
       margin: 10px;
   }
 }
+
+.skip{
+  display: block;
+  line-height: 44px;
+  padding: 0 20px;
+  margin-top: -44px;
+  }
+  
+  .skip:focus{
+  margin-top: 0;
+  }
