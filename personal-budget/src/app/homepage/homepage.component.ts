@@ -1,42 +1,36 @@
 import {  AfterViewInit, Component } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Chart} from 'chart.js/auto';
+import { DataService } from '../data.service';
 
 @Component({
   selector: 'pb-homepage',
   templateUrl: './homepage.component.html',
-  styleUrls: ['./homepage.component.scss']
+  styleUrls: ['./homepage.component.scss'],
+  providers: [DataService]
 })
 export class HomepageComponent implements AfterViewInit{
 
-
-
-public datasource: any = {
-          
-  labels: [],
-  datasets: [
+  private datasource: any = {
+    labels: [],
+    datasets: [
       {
-          data: [],
-          backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb', '#cd56ff', '#6384ff', '#a2eb36', '#56ffcd'],
+        data: [],
+        backgroundColor: ['#ffcd56', '#ff6384', '#36a2eb', '#cd56ff', '#6384ff', '#a2eb36', '#56ffcd'],
       },
-  ],
-};
+    ],
+  };
 
 
 
-  constructor(private http: HttpClient){}
-  ngAfterViewInit(): void {
-    this.http.get('http://localhost:3000/budget')
-    .subscribe((res: any) => {
-
-      
-      for (var i = 0; i < res.myBudget.length; i++) {
-        this.datasource.datasets[0].data[i] = res.myBudget[i].budget;
-        this.datasource.labels[i] = res.myBudget[i].title;
-      }
+  constructor(private dataService:DataService){}
+  async ngAfterViewInit(): Promise<void> {
+    
+    this.datasource = await this.dataService.getData();
     this.createChart();
-    })
+    
   }
+
   createChart(){
     var ctx = document.getElementById("myChart") as HTMLCanvasElement;
     var myPieChart = new Chart(ctx, {
