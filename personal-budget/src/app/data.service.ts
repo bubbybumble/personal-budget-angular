@@ -21,7 +21,7 @@ export class DataService {
   constructor(private http: HttpClient) { }
 
   async getData(): Promise<any> {
-    if (this.datasource.labels.length <= 0) {
+    if (this.datasource.labels.length <= 0) { // only make request if data is empty
       
       const res: any = await this.http.get('http://localhost:3000/budget').toPromise(); // It says toPromise is deprecated but it is the only thing I found to use for this so far
 

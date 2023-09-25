@@ -1,5 +1,4 @@
-import {  AfterViewInit, Component } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import { AfterViewInit, Component } from '@angular/core';
 import { Chart} from 'chart.js/auto';
 import { DataService } from '../data.service';
 
